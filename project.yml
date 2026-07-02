@@ -1,0 +1,56 @@
+name: TestAssignment
+options:
+  bundleIdPrefix: com.testassignment
+  deploymentTarget:
+    iOS: "15.0"
+  createIntermediateGroups: true
+
+targets:
+  TestAssignment:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: .
+        excludes:
+          - "Tests/**"
+          - "project.yml"
+          - "Makefile"
+          - "README.md"
+          - "*.xcodeproj"
+          - "build/**"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.testassignment.app
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+
+  TestAssignmentTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: Tests
+    dependencies:
+      - target: TestAssignment
+    settings:
+      base:
+        SWIFT_VERSION: "5.0"
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  TestAssignment:
+    build:
+      targets:
+        TestAssignment: all
+        TestAssignmentTests: [test]
+    test:
+      targets:
+        - TestAssignmentTests
+    run:
+      config: Debug
